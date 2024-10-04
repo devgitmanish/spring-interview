@@ -13,6 +13,7 @@ and its does not have an end user interaction,
 that means we are taking about background application 
 like our microservices then the choice is client credentials.
 
+<img width="1587" alt="image" src="https://github.com/devgitmanish/project-architecture/blob/main/Screenshot%202024-09-27%20152204.png">
 
 Oauth2-Grant Types
 
