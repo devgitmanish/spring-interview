@@ -1,0 +1,12 @@
+1. Code Base 
+2. Dependencies
+3. Configuration - Central Config
+4. Backing Services = Attach and detached like DB 
+5. Build Run Release - Docker - CI/CD
+6. Stateless Process - server can not hold the data 
+7. Port Binding 
+8. Concurrency
+9. Dev/Prod equalness - branches should be same as much as possible 
+10. Logs - central logging 
+11. Admin process 
+12. Disposability - maximize robustness fast startup and grateful shutdown
