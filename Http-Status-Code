@@ -1,0 +1,23 @@
+=========HTTP Status Code ==================================
+1xx Informational Code 
+
+2xx Success 
+   200 OK,  201 Created, 204- No Content, 206 Partial Content
+
+3xx Redirection 
+   300 Multiple Choices  304 No Modified 
+
+4xx : Client Error 
+   
+	400 Bad Request :
+	
+	401 Unauthorized : Indicates missing or invalid authentication credentials.
+	
+	403 Forbidden : Indicates that the requested resource does not exist, for example when user try the url which does not exists. 
+	
+	404 Not Found : 
+	406 Not Acceptable : 
+	415 : Unsupported Media Type 
+
+5xx - Server Error 
+   500 Inter Server Error  : 501 Not implemented : 502 Bad Gateway : 503 : Service Unavailable : 504 Gateway timeout :  
