@@ -1,0 +1,83 @@
+== ===== Transaction ===============================================
+
+Synchronous Transaction 
+	• Two Phase Commit 
+	• Three Phase Commit
+	
+Asynchronous Transaction 
+	• Choreography 
+	• Orchestration 
+	
+
+Transaction Propagation
+
+REQUIRED, 
+SUPPORT, 
+NOT SUPPORTED 
+REQUIRE_NEW, 
+NEVER, 
+MENDETORY 
+
+Transaction Isolation
+
+READ_COMMITED               NO  YES YES 
+READ_UNCOMMITED           YES YES YES
+REPETABLE_READ              NO  NO  Yes
+SERILIZABLE                      NO  NO  NO 
+
+Dirty read   T1 reads the value and update the value but not committed and T2 reads the value but T1 rolled back, T2 have wrong value this is call dirty read ( data inconsistency occurred) 
+
+Non Repeatable Read :    T1 read the value and decide to perform some operation and same time T2 reads and value performed operation and commit changes, now t1 reads the value before commit with the same select statement value would be different. 
+
+Phantom Read  : when you get the data via select statement and you will get different count because another Txn T2 write the data in the same table . 
+
+For checked Exception  @ Transactional (rollbackFor = exceptionclass Name.class)
+
+=========================================================
+ACID PROPERTY
+
+Atomicity  - either all or none 
+Consistency - Before and after txn data should be same 
+Isolation - Parallel Schedule to Serial Schedule 
+Durability - After txn even db fail data should not be lost 
+
+EVENT Driven Via Choreography or Orchestration 
+
+Choreography Saga Pattern 
+
+Choreography is a way to coordinate saga where microservice exchange events without a central point of contact. 
+
+In choreography each microservice run its own local txn and publish event to kafka that trigger the local txn in other microservices.
+
+Advantage 
+	• Not required additional service implementation and maintenance. 
+	• Do not have single point of failure since the responsibilities are distributed.
+	
+Disadvantage 
+	• Work flow become confusing 
+	• Its difficult to track the events in kafka
+	• Risk of cyclic dependency because they have consume each other command. 
+	• These is not backtrack who is listing what. 
+
+
+ Orchestration Saga Pattern 
+
+Orchestration is a way to coordinate microservice but very controlled and centralized manner that is orchestration layer. 
+
+The orchestration (Java layer ) is going to handle all kind of events. It’s a single point of connection for each and every microservice. 
+
+Role of Orchestration
+
+If the task is successful trigger another event to next microservice in line but if it is failed we have to revert txn so that task is also done by orchestrator. 
+
+So the orchestrator is the main person to perform communication in every microservice. 
+
+Disadvantage :
+	• Additional design complexity to implement of a coordination logic. 
+	• There is an additional point of failure 
+ 
+
+
+
+
+
