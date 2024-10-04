@@ -1,0 +1,9 @@
+HETEOS - Hypermdia As The Engine Of Application State
+
+Heteos is the way to guide the interactions of the client with Restful Services 
+by providing hypermedia links with the response and indicate available action and resources 
+
+Benefits 
+Discoverability - Client can discover available action and resources dynamically by following links which coming in response 
+Decoupling : client are less dependent on fixed URL's 
+Guidance : clients are guided on how to interact with the API 
