@@ -21,3 +21,11 @@
 
 5xx - Server Error 
    500 Inter Server Error  : 501 Not implemented : 502 Bad Gateway : 503 : Service Unavailable : 504 Gateway timeout :  
+
+
+Asynchronous
+
+202 Accepted:
+This status code indicates that the request has been received and accepted for processing, 
+but the processing has not been completed yet. It's suitable for cases where the server 
+intends to process the request but will do so asynchronously.
