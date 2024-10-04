@@ -1,0 +1,55 @@
+NFR 
+NFRS is the Non-functional requirements of software development that define the quality attributes, constraints, and behaviors of a system rather than specific functionalities. 
+When developing Java microservices, addressing NFRs to ensure that the system is robust, scalable, secure, and maintainable. 
+
+Here are some key NFRs to consider:
+
+
+1. Performance
+Response Time: Optimize microservices to provide quick responses.
+Throughput: Ensure the system can handle a high number of requests per second.
+Latency: Minimize latency in inter-service communication.
+
+2. Security
+
+Authentication and Authorization: Implement robust mechanisms for user authentication and authorization.
+Data Encryption: Encrypt data both at rest and in transit.
+
+
+3. Scalability
+
+Horizontal Scalability: Ensure microservices can scale out by adding more instances.
+Load Balancing: Use load balancers to distribute traffic evenly across instances.
+Auto-scaling: Implement auto-scaling policies to handle varying loads.
+
+4. Availability
+
+High Availability (HA): Design the system to be available even during failures.
+Downtime Minimization: Plan for zero or minimal downtime during deployments and maintenance.
+
+5. Maintainability
+
+Code Quality: Follow coding standards and best practices to ensure high code quality.
+Documentation: Provide comprehensive documentation for developers and users.
+Versioning: Implement proper versioning for APIs and services to manage changes.
+
+5. Reliability
+Fault Tolerance: Implement mechanisms like retries, circuit breakers, and failovers.
+Redundancy: Deploy redundant instances to avoid single points of failure.
+Monitoring and Alerts: Set up monitoring and alerting to detect and respond to issues quickly.
+
+6. Usability
+
+API Design: Design user-friendly and intuitive APIs.
+Error Handling: Provide clear and informative error messages.
+
+7. Configurability
+
+External Configuration: Use external configuration management to manage environment-specific settings.
+Dynamic Configuration: Enable dynamic configuration updates without redeploying services.
+
+8. Observability
+
+Logging: Implement structured and centralized logging.
+Metrics: Collect and expose metrics for performance monitoring.
+Tracing: Use distributed tracing to track requests across microservices.
