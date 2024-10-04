@@ -1,0 +1,104 @@
+GET
+ 
+Purpose: Retrieve data from the server.
+
+Design Considerations: 
+
+• Define the resource URL structure.
+• Specify query parameters for filtering or sorting data.
+• Detail authentication and authorization mechanisms.
+• Outline caching strategies.
+• Define response format (e.g., JSON, XML) and status codes (e.g., 200 OK, 404 Not Found).
+
+ 
+POST
+ 
+Purpose: Create a new resource on the server.
+
+Design Considerations: 
+
+• Define the resource URL where data will be posted.
+• Specify request body format and required fields.
+• Detail validation logic for incoming data.
+• Outline error handling and response codes (e.g., 201 Created, 400 Bad Request).
+• Specify how the server will handle duplicates and idempotency, if applicable.
+
+ 
+PUT
+ 
+Purpose: Update an existing resource or create a resource if it does not exist (idempotent).
+
+Design Considerations: 
+
+• Define the resource URL and path parameters for identifying the resource.
+• Specify request body format and fields to be updated.
+• Detail idempotency requirements and handling.
+• Outline validation and business logic for updates.
+• Define response codes (e.g., 200 OK, 204 No Content, 404 Not Found).
+ 
+
+PATCH
+ 
+Purpose: Partially update an existing resource (non-idempotent).
+
+Design Considerations: 
+
+• Define the resource URL and path parameters.
+• Specify request body format, usually including only the fields to be updated.
+• Detail how partial updates will be merged with existing data.
+• Outline validation logic and error handling.
+• Define response codes (e.g., 200 OK, 204 No Content, 404 Not Found).
+ 
+DELETE
+ 
+Purpose: Remove a resource from the server.
+
+Design Considerations: 
+
+• Define the resource URL and path parameters for identifying the resource.
+• Specify authentication and authorization checks.
+• Outline the handling of cascading deletions, if applicable.
+• Define error handling for cases where the resource cannot be deleted.
+• Specify response codes (e.g., 200 OK, 204 No Content, 404 Not Found).
+ 
+
+General Considerations
+ 
+Security: Outline authentication and authorization mechanisms.
+Error Handling: Define how errors will be communicated and logged.
+Testing: Specify unit and integration testing strategies.
+Documentation: Ensure API documentation is clear and comprehensive.
+Performance: Consider optimizations for high-load scenarios, such as pagination or rate limiting.
+
+By focusing on these design aspects, the LLD for RESTful web services ensures that the implementation is robust, maintainable, and scalable.
+
+
+
+Network Errors: 
+
+Connection Timeouts: When the request takes too long to establish a connection.
+Read/Write Timeouts: When the server takes too long to send a response or the client takes too long to send data.
+DNS Resolution Failures: When the client's DNS server cannot resolve the domain name of the downstream service.
+Connection Refused: When the target server is not accepting connections.
+ 
+HTTP Errors: 
+
+4xx Client Errors: Indicate issues with the request made by the client. 
+400 Bad Request: The request is malformed or contains invalid data.
+401 Unauthorized: Authentication is required or has failed.
+403 Forbidden: The client does not have permission to access the resource.
+404 Not Found: The requested resource does not exist.
+429 Too Many Requests: The client has sent too many requests in a given amount of time (rate limiting).
+ 
+
+5xx Server Errors: Indicate issues on the server side. 
+
+500 Internal Server Error: A generic error indicating a problem on the server.
+502 Bad Gateway: The server received an invalid response from an upstream server.
+503 Service Unavailable: The server is currently unable to handle the request, often due to being overloaded or down for maintenance.
+504 Gateway Timeout: The server did not receive a timely response from an upstream server.
+ 
+Application Errors: 
+Validation Errors: Data sent to the service does not meet expected criteria.
+Business Logic Errors: Errors that arise from business rules being violated.
+Resource Conflicts: Attempts to modify resources that conflict with current state, such as version conflicts in data.
