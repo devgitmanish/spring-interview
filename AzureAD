@@ -1,0 +1,118 @@
+OAuth = Access without Password 
+
+It is an open standard for Authorization which allows any 
+third party application to go an authorization provider 
+( google, Azure, linkedIn, github etc)
+
+On your behalf and get your data from there  
+
+When we use client credentials protocol ?
+
+If the application running on server not on the client or user machine 
+and its does not have an end user interaction, 
+that means we are taking about background application 
+like our microservices then the choice is client credentials.
+
+
+Oauth2-Grant Types
+
+	1. Client Credentials   -  clientId, clientSecret, tokenUrl
+	2. Authorization Code - 
+	3. Password - 
+	4. Authorization Code PKEC - 
+	5. Implicit - 
+	6. Refresh Token Grant - 
+	
+	And one more popular machanism 
+Authencation and Authorization with JWT - It's not a grant type but
+
+
+
+
+
+In my Previous project I used OAuth2.0 for Authorization with Azure Active Directory 
+Azure AD will act as an Authorization server for us.
+
+We are using OAuth2 protocol with Azure.
+Azure Active Directory allows OIDC protocol on top of OAuth2.0.
+
+Before the regular OAuth2.0 flow started in our application, the client must be register with the Authorization Server which is nothing but Azure AD to get the client_id and a client_secret. 
+These two values are going to be shared with client and used to confirm its identity to access the  protected resource. 
+
+So what we have done at Azure level for Authorization purpose and for register an application/roles and client in Azure is a onetime manual process.
+
+	1. I have registered my application on Azure Ad 
+		a. Option - App Registration ----> New Registration
+		b. Add Application Id/Audience/Scope - Unique per application
+		
+	2. Then we need to create a New Role for fine grained permissions
+		a. Suppose I have CAE- Role - ReadClaim / ProcessClaim /downloadClaim /CAEAdmin/ so onn.
+		b. Option - AppRoles --> Create AppRole 
+		
+	3. Register a client means who is going to access my protected resources and allow/grant role to them. 
+		a. Option - App Registration ---> New Registration   - Chwy-Client  HCP Client GGMap  
+		b. Now at client side Option call API Permission ---> Add Permission -> list of Application comes include my application also( CAE ) - Choose them and roles also coming for assignment.   Once it is done
+		c. Then the request goes to application owner/ super admin grant the access. 
+		
+	4. Once Client registration is done we have to create client credentials - Client Id and Secret for your client along with token Endpoint to grab the token ( HEADER PAYLOAD AND SIGNATURE INFORMATION )
+	https://login.microsoftonline.com/{tanent-Id}/oauth2/v2.0/token
+	https://login.microsoftonline.com/bd0154b0-2dc8-46bd-901e-e1a372e01c09/oauth2/v2.0/token
+
+====================Azure AD ==================================
+
+AND IN OUT APPLICATION SIDE OR RESOURCE SIDE WE HAVE A 10 TO 12 LINES OF JAVA CODE TO VALIDATE THE TOKEN. 
+
+JWT Service.java
+ DecodedJWT jwt = JWT.decode(token);
+URL jwkURL = new URL("https://login.microsoftonline.com/common/discovery/keys");
+
+Before validating the information like appid, audience, token expiry
+We need to verify the signature first
+
+When a JWT is signed at the time of token generation via Azure AD, so azure Ad using a private key(Client_secret),
+
+it can be verified using the corresponding public key and the discovery endpoint provides these public keys to verify your token is not tempered any external sources. 
+
+The URL https://login.microsoftonline.com/common/discovery/keys is used to fetch the JSON Web Key Set (JWKS) from Azure AD.
+
+This JWKS contains the public keys that can be used to verify the signatures of JSON Web Tokens (JWTs) issued by Azure AD. 
+The public keys are used to ensure that the tokens you receive are valid and have not been tampered with any external sources.
+It’s a very straightforward code that provided by JWKS library 
+
+Why Use JWKS(JSON WEB Key Set) URL in Token Validation
+
+Public Key Discovery: When a JWT is signed via Azure AD using a private key(Client_secret), it can be verified using the corresponding public key and the discovery endpoint provides these public keys to verify your token is not tempered any external sources. 
+
+Key Rotation Handling: Public keys can be rotated. By fetching the keys from the discovery endpoint dynamically, your application can handle key rotations without requiring manual updates.
+
+Security: Ensures that the tokens are indeed issued by the trusted identity provider (Microsoft in this case).
+
+
+{
+  "typ": "JWT",
+  "alg": "RS256",
+  "x5t": "H9nj5AOSswMphg1SFx7jaV-lB9w",
+  "kid": "H9nj5AOSswMphg1SFx7jaV-lB9w"   == Key Identifier
+}.{
+  "aud": "api://255900ae-0f1f-40b2-b2b3-4e5b2553041a",
+  "iss": "https://sts.windows.net/bd0154b0-2dc8-46bd-901e-e1a372e01c09/",
+  "iat": 1726403176,
+  "nbf": 1726403176,
+  "exp": 1726407076,
+  "aio": "E2dgYOjmNPgyJyk/889S26hrW+J1AA==",
+  "appid": "24044f6a-6ae6-4b16-b91f-5437de71522d",
+  "appidacr": "1",
+  "idp": "https://sts.windows.net/bd0154b0-2dc8-46bd-901e-e1a372e01c09/",
+  "oid": "7a43e1e8-d73a-41a6-b48f-d127bd768599",
+  "rh": "0.AcYAsFQBvcgtvUaQHuGjcuAcCa4AWSUfD7JAsrNOWyVTBBrGAAA.",
+  "roles": [
+    "download"
+  ],
+  "sub": "7a43e1e8-d73a-41a6-b48f-d127bd768599",
+  "tid": "bd0154b0-2dc8-46bd-901e-e1a372e01c09",
+  "uti": "FtUYJMo2a0-bKnT2HVjyAA",
+  "ver": "1.0"
+}
+SIGNATURE {
+}
+
