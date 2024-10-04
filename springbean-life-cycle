@@ -1,1 +1,4 @@
-
+Loading Beans Defination - via xml or annotation 
+Bean Instation - Bean Object Created 
+Bean Initilization - once object created spring bean inilized via @Value or setter or constructor 
+Bean Destroy - release resources and close connection 
